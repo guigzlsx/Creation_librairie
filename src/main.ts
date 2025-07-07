@@ -1,24 +1,63 @@
 import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+import { animate } from './animation'
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+const app = document.getElementById('app');
+if (app) {
+  app.innerHTML = '';
+  app.style.maxWidth = 'none';
+  app.style.padding = '0';
+}
+document.body.style.background = 'linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%)';
+document.body.style.minHeight = '100vh';
+document.body.style.margin = '0';
+document.body.style.display = 'flex';
+document.body.style.flexDirection = 'column';
+document.body.style.alignItems = 'center';
+document.body.style.justifyContent = 'center';
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+const title = document.createElement('h1');
+title.textContent = 'Démo Animation du Carré';
+title.style.fontFamily = 'Avenir, Helvetica, Arial, sans-serif';
+title.style.fontWeight = '700';
+title.style.fontSize = '2.5rem';
+title.style.color = '#222';
+title.style.marginBottom = '2rem';
+document.body.appendChild(title);
+
+const box = document.createElement('div');
+box.id = 'box';
+box.style.position = 'fixed';
+box.style.left = '0px';
+box.style.top = '50%';
+box.style.transform = 'translateY(-50%)';
+box.style.width = '60px';
+box.style.height = '60px';
+box.style.background = 'linear-gradient(135deg, #3498db 60%, #6dd5fa 100%)';
+box.style.borderRadius = '16px';
+box.style.boxShadow = '0 8px 32px #0002';
+box.style.transition = 'box-shadow 0.3s';
+box.style.display = 'flex';
+box.style.alignItems = 'center';
+box.style.justifyContent = 'center';
+document.body.appendChild(box);
+
+const boxWidth = 60;
+function getMaxLeft() {
+  return window.innerWidth - boxWidth;
+}
+
+async function loop() {
+  while (true) {
+    await animate(box, 'left', 0, getMaxLeft(), 1000);
+    await animate(box, 'left', getMaxLeft(), 0, 1000);
+  }
+}
+loop();
+
+const legend = document.createElement('p');
+legend.textContent = 'Le carré bleu fait des allers-retours horizontaux sur toute la largeur de la fenêtre.';
+legend.style.fontFamily = 'Avenir, Helvetica, Arial, sans-serif';
+legend.style.fontSize = '1.1rem';
+legend.style.color = '#555';
+legend.style.marginTop = '2rem';
+document.body.appendChild(legend);
