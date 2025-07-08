@@ -31,8 +31,8 @@ describe('Animation de rotation du carré', () => {
     cy.get('#box')
       .invoke('css', 'transform')
       .then(transform => {
-        // Après la rotation, la matrice doit être revenue à l'identité (rotation 0deg)
-        expect(transform === 'none' || transform.match(/^matrix\(1, 0, 0, 1, [\d.-]+, [\d.-]+\)$/)).to.be.true;
+        // La matrice doit être de la forme matrix(1, 0, 0, 1, x, y) où y est la translation verticale
+        expect(transform).to.match(/^matrix\(1, 0, 0, 1, [\d.-]+, [\d.-]+\)$/);
       });
   });
 });
