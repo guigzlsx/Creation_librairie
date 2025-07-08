@@ -7,7 +7,11 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test:e2e": "cypress open"
+    "test:e2e": "cypress open",
+    "test:e2e:ci": "cypress run",
+    "test": "echo 'No unit tests: only E2E tests with Cypress' && exit 0",
+    "test:coverage": "echo 'No coverage: only E2E tests with Cypress' && exit 0",
+    "format:check": "echo 'No format check: not configured' && exit 0"
   },
   "devDependencies": {
     "typescript": "~5.8.3",
