@@ -1,13 +1,13 @@
 /**
- * Anime une propriété CSS numérique d'un élément HTML.
- * @param element L'élément à animer
- * @param property La propriété CSS à animer (ex: 'left', 'top', 'opacity', etc.)
- * @param from Valeur de départ
- * @param to Valeur d'arrivée
- * @param duration Durée de l'animation en ms
- * @param easing Fonction d'interpolation (optionnelle)
- * @returns Une promesse résolue à la fin de l'animation
+ * @param element 
+ * @param property 
+ * @param from 
+ * @param to 
+ * @param duration 
+ * @param easing 
+ * @returns
  */
+
 export function animate(
   element: HTMLElement,
   property: string,
@@ -30,6 +30,34 @@ export function animate(
       }
     }
     (element.style as any)[property] = from + (property === 'opacity' ? '' : 'px');
+    requestAnimationFrame(frame);
+  });
+} 
+
+/**
+ * @param element
+ * @param angle
+ * @param 
+ */
+export function animateRotate(
+  element: HTMLElement,
+  angle: number = 360,
+  duration: number = 800
+): Promise<void> {
+  return new Promise(resolve => {
+    const start = performance.now();
+    function frame(now: number) {
+      const elapsed = now - start;
+      const t = Math.min(elapsed / duration, 1);
+      const currentAngle = angle * t;
+      element.style.transform = `translateY(-50%) rotate(${currentAngle}deg)`;
+      if (t < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        element.style.transform = `translateY(-50%) rotate(0deg)`;
+        resolve();
+      }
+    }
     requestAnimationFrame(frame);
   });
 } 
