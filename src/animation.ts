@@ -32,4 +32,33 @@ export function animate(
     (element.style as any)[property] = from + (property === 'opacity' ? '' : 'px');
     requestAnimationFrame(frame);
   });
+}
+
+/**
+ * Anime une rotation sur l'axe Z de l'élément donné.
+ * @param element L'élément à animer
+ * @param angle L'angle de rotation en degrés (par défaut 360)
+ * @param duration La durée totale de la rotation en ms
+ */
+export function animateRotate(
+  element: HTMLElement,
+  angle: number = 360,
+  duration: number = 800
+): Promise<void> {
+  return new Promise(resolve => {
+    const start = performance.now();
+    function frame(now: number) {
+      const elapsed = now - start;
+      const t = Math.min(elapsed / duration, 1);
+      const currentAngle = angle * t;
+      element.style.transform = `translateY(-50%) rotate(${currentAngle}deg)`;
+      if (t < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        element.style.transform = `translateY(-50%) rotate(0deg)`;
+        resolve();
+      }
+    }
+    requestAnimationFrame(frame);
+  });
 } 

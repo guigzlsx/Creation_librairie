@@ -1,5 +1,5 @@
 import './style.css'
-import { animate } from './animation'
+import { animate, animateRotate } from './animation'
 
 const app = document.getElementById('app');
 if (app) {
@@ -50,6 +50,7 @@ async function loop() {
   while (true) {
     await animate(box, 'left', 0, getMaxLeft(), 1000);
     await animate(box, 'left', getMaxLeft(), 0, 1000);
+    await animateRotate(box, 360, 800);
   }
 }
 loop();
