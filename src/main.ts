@@ -1,5 +1,5 @@
 import './style.css'
-import { animate } from './animation'
+import { animate, animateRotate } from './animation'
 
 const app = document.getElementById('app');
 if (app) {
@@ -48,8 +48,17 @@ function getMaxLeft() {
 
 async function loop() {
   while (true) {
-    await animate(box, 'left', 0, getMaxLeft(), 1000);
-    await animate(box, 'left', getMaxLeft(), 0, 1000);
+    // Aller : translation + rotation + couleur
+    box.style.transition = 'background 0.5s';
+    box.style.background = 'linear-gradient(135deg, #e67e22 60%, #f6d365 100%)';
+    box.style.transform = 'translateY(-50%) rotate(0deg)';
+    await animate(box, 'left', 0, getMaxLeft(), 1000, t => t);
+    box.style.transition = 'background 0.5s';
+    box.style.background = 'linear-gradient(135deg, #3498db 60%, #6dd5fa 100%)';
+    box.style.transform = 'translateY(-50%) rotate(360deg)';
+    await animate(box, 'left', getMaxLeft(), 0, 1000, t => t);
+    box.style.transform = 'translateY(-50%) rotate(0deg)';
+    await animateRotate(box, 360, 800); // Fait tourner le carré sur lui-même après chaque aller-retour
   }
 }
 loop();
