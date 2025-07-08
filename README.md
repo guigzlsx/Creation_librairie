@@ -67,19 +67,28 @@ Le test vérifie :
 ## 🗂️ Structure du projet
 
 ```
-.
+Creation_librairie/
+├── index.html
+├── LICENSE.md
+├── package-lock.json
+├── package.json
 ├── public/
+│   └── vite.svg
 ├── src/
-│   ├── animation.ts
 │   ├── counter.ts
 │   ├── main.ts
-│   └── style.css
-├── cypress/
-│   └── e2e/
-│       └── animation.cy.js
-├── index.html
-├── package.json
-└── tsconfig.json
+│   ├── style.css
+│   ├── typescript.svg
+│   └── vite-env.d.ts
+├── tsconfig.json
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+└── cypress/
+    ├── e2e/
+    ├── fixtures/
+    ├── support/
+    └── downloads/
 ```
 
 ## ✨ Technologies
